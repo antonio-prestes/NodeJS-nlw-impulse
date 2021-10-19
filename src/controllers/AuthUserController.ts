@@ -6,9 +6,13 @@ class AuthUserController {
         const {code} = request.body;
 
         const service = new AuthUserService()
-        const result = await service.execute(code);
 
-        return  response.json(result);
+        try {
+            const result = await service.execute(code);
+            return response.json(result);
+        } catch (err) {
+            return response.json(err.message);
+        }
     }
 }
 
